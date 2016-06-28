@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<!--
+
+-->
+<html>
+
+<head>
+  <meta charset="utf-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet" href="themes/NullPointer.min.css" />
+  <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+
+  <script src="pedido.js"></script>
+
+  <script src="autentificacion.js"></script>
+  
+  <!-- Include the jQuery library -->
+  <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <!-- Include the jQuery Mobile library -->
+  <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+  <script src="phonegap.js"></script>
+
+  <title> NP Rest </title>
+</head>
+
+<body>
+
+  <!-- Login -->
+  <div data-role="page" id="inicio" data-theme="a" style="background: url(1.jpg);">
+
+    <div data-role="header">
+      <h1>Autenticacion</h1>
+    </div>
+
+    <div data-role="content">
+
+
+      <label> Usuario </label>
+      <input type="text" id="nombredeusuario">
+
+      <label> Password </label>
+      <input type="password" id="clave" >
+
+    </br>
+
+    <button id="botonLogin" onclick="Login()" data-transition="flip">Login</button>
+    <a href="#Register" class="ui-btn" data-transition="flip">Registrarse</a>
+
+
+  </div>
+
+  <div data-role="footer" data-position="fixed">
+    <h1>NullPointer Rest</h1>
+  </div>
+</div>
+
+<!-- -->
+
+
+
+
+<!-- Registro -->
+<div data-role="page" id="Register" data-theme="a" style="background: url(1.jpg);">
+
+  <div data-role="header">
+    <h1>Registrarse</h1>
+  </div>
+
+  <div data-role="content">
+    <form id="registrarse" >
+
+
+
+      <label> Usuario </label>
+      <input type="text" id="nombreR" name="nombredeusuario">
+
+      <label> Correo </label>
+      <input type="text" id="correoR" name="correoeusuario">
+
+      <label> Password </label>
+      <input type="password" id="claveR" name="clave" >
+
+      <label> Direccion </label>
+      <input type="text" id="direcciondeusuario" name="direcciondeusuario">
+
+    </br>
+    <input type="submit" value="Registrarse" id="botonRegistrarse">
+    <a href="#inicio" class="ui-btn" data-transition="flip">Login</a>
+
+  </form>
+</div>
+
+<div data-role="footer" data-position="fixed">
+  <h1>NullPointer Rest</h1>
+</div>
+</div>
+
+<!-- -->
+
+
+
+
+<!-- Home -->
+<div data-role="page" id="home" data-theme="a" style="background: url(1.jpg);">
+  <div data-role="header">
+    <h1>NullPointer Rest</h1>
+
+    <div data-role="navbar" >
+      <ul>
+        <li><a href="#home" data-icon="home">Home</a></li>
+        <li><a href="#shop" data-icon="shop" data-transition="flip">Carrito</a></li>
+        <li><a  id="usuario-home" href="#Usuario" data-icon="user" data-transition="flip"></a></li>
+        <li><a href="#Usuario" data-icon="power" data-transition="flip">Cerrar Sesion</a></li>
+      </ul>
+    </div>
+  </div>
+
+
+  <div data-role="content" class="ui-content">
+    <h4> Lista de platillos disponibles</h4>
+
+
+
+
+    <!-- WS para cargar Lista excluyendo inactivos. Se debe mostrar solo nombre y precio-->
+
+    <ul id="platos-home" data-role="listview" data-filter="true" data-filter-placeholder="Buscar" data-inset="true">
+
+    </ul>
+  </div>
+
+
+</div>
+
+<!-- -->
+
+
+<!-- Error del login -->
+<div data-role="page" data-dialog="true" id="pagetwo" data-theme="a" style="background: url(1.jpg);">
+  <div data-role="header" data-theme="a">
+    <h1>Lo sentimos</h1>
+  </div>
+
+  <div data-role="main" class="ui-content">
+    <p>Sus credenciales no son datos validos, por favor vuelva a intentarlo</p>
+    <a href="#inicio" class="ui-btn ui-btn-inline ui-mini">Volver al login</a>
+
+  </div>
+
+  <div data-role="footer" data-theme="a">
+    <h1>NullPointer Rest</h1>
+  </div>
+</div>
+<!-- -->
+
+
+
+<!-- Error del registro -->
+<div data-role="page" data-dialog="true" id="error2" data-theme="a" style="background: url(1.jpg);">
+  <div data-role="header" data-theme="a">
+    <h1>Lo sentimos</h1>
+  </div>
+
+  <div data-role="main" class="ui-content">
+    <p>Este usuario ya existe en el sistema. Por favor intentelo con otros datos.</p>
+    <a href="#inicio" class="ui-btn ui-btn-inline ui-mini">Volver al login</a>
+
+  </div>
+
+  <div data-role="footer" data-theme="a">
+    <h1>NullPointer Rest</h1>
+  </div>
+</div>
+<!-- -->
+
+
+
+
+<!-- Ver datos usuario -->
+<div data-role="page" id="Usuario" data-theme="a" style="background: url(1.jpg);">
+
+  <div data-role="header">
+    <h1>Ver datos</h1>
+  </div>
+
+  <div data-role="content">
+    <form id="modificar" >
+
+      <label> Correo </label>
+      <input type="text" id="correoS" readonly>
+
+      <label> Usuario </label>
+      <input type="text" id="nombreS" >
+
+
+      <label> Password </label>
+      <input type="password" id="claveS" >
+
+      <label> Direccion </label>
+      <input type="text" id="direcciondeusuarioS" >
+
+    </br>
+    <input type="submit" value="Modificar" id="botonModificar">
+    <input type="button" onclick="cerrarSesion()" value="Cerrar Sesion" id="botonCerrar">
+    <a href="#home" class="ui-btn">Cancelar</a>
+
+
+  </form>
+</div>
+
+<div data-role="footer">
+  <h1>NullPointer Rest</h1>
+</div>
+</div>
+
+<!-- -->
+
+
+<!-- Ver datos platos -->
+<div data-role="page" id="platos" data-theme="a" style="background: url(1.jpg);">
+
+  <div data-role="header">
+    <h1>Datos del plato</h1>
+  </div>
+
+  <div data-role="content">
+
+      <label>Codigo</label>
+       <input type="text" id="codigoPlato" readonly>
+
+      <label> Nombre </label>
+      <input type="text" id="nombrePlato" readonly>
+
+
+      <label> Precio </label>
+      <input type="text" id="precioPlato" readonly>
+
+      <label> Descripcion </label>
+      <input type="text" id="descPlato" readonly>
+
+      <label> Foto </label>
+      <img id="fotoPlato" src="">
+
+    </br>
+
+    <button onclick="agregarPlato()">Agregar al carrito</button>
+    <a href="#home" class="ui-btn" data-transition="flip">Regresar</a>
+</div>
+
+<div data-role="footer">
+  <h1>NullPointer Rest</h1>
+</div>
+</div>
+
+<!-- -->
+
+
+
+<!-- Carrito -->
+<div data-role="page" id="shop" data-theme="a" style="background: url(1.jpg);">
+  <div data-role="header">
+    <h1>Carrito</h1>
+
+
+    <div data-role="navbar">
+      <ul>
+        <li><a href="#home" data-icon="home" data-transition="flip">Home</a></li>
+        <li><a href="#shop" data-icon="shop">Carrito</a></li>
+        <li><a id="usuario-carrito" href="#Usuario" data-icon="user" data-transition="flip"></a></li>
+        <li><a href="#Usuario" data-icon="power" data-transition="flip">Cerrar Sesion</a></li>
+      </ul>
+    </div>
+  </div>
+
+
+  <div data-role="content">
+    <h3> Lista de Productos</h3>
+
+
+    <!-- WS para cargar Lista de pedidos-->
+
+    <ul id="noe" data-role="listview" data-filter="true" data-input="#myFilter"  data-inset="true">
+      <li><a href="#">Hola mundo</a></li>
+      <li><a href="#">Adios mundo</a>
+    </ul>
+
+    <label>El total de su pedido:</label>
+    <input type="text" id="TotalS" readonly>
+
+
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <div data-role="navbar">
+      <ul>
+        <li><a href="#home" data-transition="flip">Comprar</a></li>
+          <li><a href="#home" onclick="anular()">Anular</a></li>
+        <li><a href="#home" onclick="confirmar()">Confirmar</a></li>
+
+      </ul>
+    </div>
+
+  </div>
+
+
+</div>
+
+<!-- -->
+
+
+
+
+<!-- Mensaje de agregar -->
+<div data-role="page" data-dialog="true" data-close-btn="none" id="agregarM" data-theme="a" style="background: url(1.jpg);">
+  <div data-role="header" data-theme="a">
+    <h1>Item agregado</h1>
+  </div>
+
+  <div data-role="content" class="ui-content">
+    <p>El platillo que selecciono a sido agregado al carrito de compras. Puede seguir agregando items o procedes a comprar.</p>
+    <a href="#shop" class="ui-btn ui-btn-inline ui-mini" data-transition="flip">Ir al carrito</a>
+    <a href="#home" class="ui-btn ui-btn-inline ui-mini" data-transition="flip">Continuar comprando</a>
+
+  </div>
+
+  <div data-role="footer" data-theme="a">
+    <h1>NullPointer Rest</h1>
+  </div>
+</div>
+<!-- -->
+
+
+
+<!-- Mensaje de cerrar sesion -->
+<div data-role="page" data-dialog="true" id="sesion" data-theme="a" style="background: url(1.jpg);">
+  <div data-role="header" data-theme="a">
+    <h1>Sesion cerrada</h1>
+  </div>
+
+  <div data-role="main" class="ui-content">
+    <p>Se ha cerrado la sesion, si desea realizar algun pedido vuelva a logearse</p>
+    <a href="#inicio" class="ui-btn ui-btn-inline ui-mini">Volver al login</a>
+
+  </div>
+
+  <div data-role="footer" data-theme="a">
+    <h1>NullPointer Rest</h1>
+  </div>
+</div>
+<!-- -->
+
+
+
+<!-- Ver Pedidos -->
+<div data-role="page" id="VerPedido" data-theme="a" style="background: url(1.jpg);">
+  <div data-role="header">
+    <h1>Carrito</h1>
+
+    <div data-role="navbar">
+      <ul>
+        <li><a href="#home" data-icon="home" data-transition="flip">Home</a></li>
+        <li><a href="#shop" data-icon="shop" data-transition="flip">Carrito</a></li>
+        <li><a id="usuario-pedido" href="#Usuario" data-icon="user" data-transition="flip"></a></li>
+        <li><a href="#Usuario" data-icon="power" data-theme="b" data-transition="flip">Cerrar Sesion</a></li>
+      </ul>
+    </div>
+  </div>
+
+
+  <div data-role="main" class="ui-content">
+    <h3> Pedido: </h3>
+
+    <form id="verPedido" >
+
+      <label> Nombre </label>
+      <input type="text" id="nombrePedido" name="nombrePedido">
+
+
+      <label> Precio </label>
+      <input type="text" id="precioPedido" name="precioPedido" >
+
+      <label> Descripcion </label>
+      <input type="text" id="descPedido" name="descPedido">
+
+      <label> Estado </label>
+      <input type="text" id="estadoPedido" name="estadoPedido">
+
+    </br>
+    <input type="submit" value="Enviar pedido" id="botonAgregarPedido">
+    <input type="button" onclick="CancelarPedido()" value="Cancelar pedido" id="botonCancelarPedido">
+    <a href="#home" class="ui-btn">Regresar</a>
+
+  </form>
+
+
+</div>
+
+
+</div>
+
+<!-- -->
+
+
+<!-- Mensaje de cancelar pedido -->
+<div data-role="page" data-dialog="true" id="CancelarPedido" data-theme="a" style="background: url(1.jpg);">
+  <div data-role="header" data-theme="a">
+    <h1>Pedido Cancelado</h1>
+  </div>
+
+  <div data-role="main" class="ui-content">
+    <p>Se ha quitado el pedido del carrito de compras.</p>
+    <a href="#home" class="ui-btn ui-btn-inline ui-mini">Volver al home</a>
+
+  </div>
+
+  <div data-role="footer" data-theme="a">
+    <h1>NullPointer Rest</h1>
+  </div>
+</div>
+<!-- -->
+
+
+
+</body>
+
+</html>
